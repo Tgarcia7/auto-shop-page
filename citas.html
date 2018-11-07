@@ -25,31 +25,33 @@
 					locale: 'en',
 					inline: true,
 					daysOfWeekDisabled: [0, 6],
-					disabledDates : ['2018/10/12'],
+					disabledDates : ['2018-10-12'],
 					minDate: dayMin,
 					maxDate: dayMax,
 					format: 'L'
 				});
 				
-				$.ajax({
-					type: 'get',
-					url: 'localhost:3000/auto/1',
-					success: function(autos) {
-						
-					}
-				})
-				
-				$.ajax({
+				/*$.ajax({
 					type: 'get',
 					url: 'localhost:3000/citas/"2018-10-12"',
 					success: function(fechas) {
 						
 					}
-				})
+				})*/
 
 				//$('#datetimepicker1').on('dp.change', function(event) { alert(event.date); });
-
+				cargarAutos();
 			});
+
+			function cargarAutos(){
+				$.ajax({
+            type: 'GET',
+            url: "http://localhost:3000/auto/1",
+            success:function(data){
+             alert(data);
+            }
+        });
+			}
 		</script>
 
 	</head>
@@ -139,9 +141,6 @@
 
 						<div class="form-group">
 							<select class="form-control" name="carro" id="carro" required>
-								<option value="0">Ford Mustang</option>
-								<option value="1" selected>Lamborghini Diablo</option>
-								<option value="2" >Chevrolet Corvette</option>
 							</select>
 						</div>
 					</div>
