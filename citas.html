@@ -47,8 +47,17 @@
 				$.ajax({
             type: 'GET',
             url: "http://localhost:3000/auto/1",
-            success:function(data){
-             alert(data);
+            success:function(auto){
+							
+							var marca = "";
+
+							for (i = 0, len = auto.length; i < len; i++) {
+								
+								marca = auto[i]["auto_marca"].toLowerCase() + ' ' + auto[i]["auto_modelo"].toLowerCase();
+
+								$('#carro').append('<option value="'+auto[i]["auto_placa"]+'">'+marca+'</option>');
+								 
+							}
             }
         });
 			}
@@ -140,7 +149,7 @@
 						</label>
 
 						<div class="form-group">
-							<select class="form-control" name="carro" id="carro" required>
+							<select class="form-control text-capitalize" name="carro" id="carro" required>
 							</select>
 						</div>
 					</div>
