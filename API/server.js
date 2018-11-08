@@ -9,9 +9,9 @@ port = process.env.PORT || 3000;
 const mysql = require('mysql');
 // connection configurations
 const mc = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    host: 'wootit.cstmcmlaz2y7.us-east-1.rds.amazonaws.com',
+    user: 'tallerBilly',
+    password: 'temp',
     database: 'dbo'
 });
 
