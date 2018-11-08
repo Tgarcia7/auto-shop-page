@@ -25,3 +25,11 @@ exports.listarPorUsuario = function(req, res) {
     res.json(req.body);
   };
 
+ //agregar controller de citas
+ exports.citas = function(req, res){
+  Automovil.listarPorFecha(req.params.fecha, function(err, auto) {
+    if (err)
+      res.send(err);
+    res.json(auto);
+  });
+};

@@ -10,4 +10,7 @@ module.exports = function(app) {
 
   app.route('/auto')
     .post(autoRouts.agregarAuto);
+
+  app.route('/citas/:fecha')
+  .get(autoRouts.citas);
 };

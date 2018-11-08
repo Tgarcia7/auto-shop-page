@@ -26,7 +26,10 @@ function cargarAutos(usuario){
   });
 }
 
-function cargarHorarios(fecha){
+function cargarHorarios(){
+
+  var fecha = new Date($('#datetimepicker1').data('DateTimePicker').date());//Obtener fecha seleccionada
+  fecha = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-' +  fecha.getDate();
 
   $('#horario').empty();
 
@@ -35,16 +38,16 @@ function cargarHorarios(fecha){
       url: 'http://localhost:3000/citas/'+fecha,
       success: function(horasDisponibles) {
 
-        var idCita = "";
-        var horaCita = "";
-
         if ( horasDisponibles.length == 0 ){
           $('#horario').append('<option value="" disabled>No hay citas disponibles para el día seleccionado</option>');
         }else{
           
           for (i = 0, len = horasDisponibles.length; i < len; i++) {
             
-            $('#horario').append('<option value="'+idCita+'">'+horaCita+'</option>');
+            iFecha = new Date('2018-01-01 '+horasDisponibles[i]["horario"]);//se le agrega una fecha para utilizar la conversión de formato
+            iFecha = formatAMPM(iFecha); 
+
+            $('#horario').append('<option value="'+horasDisponibles[i]["id"]+'">'+iFecha+'</option>');
              
           }
 
@@ -57,21 +60,12 @@ function cargarHorarios(fecha){
 
 function citas(){
 
-  //On change de calendario
-  $('#datetimepicker1').on('dp.change', function(event) {
-    var fechaSeleccionada = new Date(event.date); 
-    fechaSeleccionada = fechaSeleccionada.getFullYear() + 1 + '-' + fechaSeleccionada.getMonth() + '-' +  fechaSeleccionada.getDay();
-    console.log(fechaSeleccionada);
+  var hoy = new Date();
+  var dayMin = new Date();
+  var dayMax = new Date();
 
-    //cargarHorarios(fechaSeleccionada);
-    
-  });
-
-  var today = new Date();
-  var dayMin = new Date().setDate(today.getDate()+2);//Las citas se pueden reservar mínimo 48 horas después del día actual
-  var dayMax = new Date().setDate(today.getDate()+15);//Días disponibles para citas a futuro
-
-  today = today.getFullYear() + 1 + '-' + today.getMonth() + '-' +  today.getDay();
+  dayMin.setDate(hoy.getDate()+2);//Las citas se pueden reservar mínimo 48 horas después del día actual
+  dayMax.setDate(hoy.getDate()+15);//Días disponibles para citas a futuro
   
   //Inicialización de calendario
   $('#datetimepicker1').datetimepicker({
@@ -84,5 +78,11 @@ function citas(){
   });
 
   cargarAutos(1);
+  cargarHorarios();
+
+  //On change de calendario
+  $('#datetimepicker1').on('dp.change', function(event) {
+    cargarHorarios();  
+  });
 
 }
