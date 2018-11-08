@@ -21,7 +21,7 @@ module.exports = function(app) {
 
     let stmt = `INSERT INTO citas (cita_usuario, cita_placa, cita_descripcion, cita_fecha)
                 VALUES(?,?,?,?)`;
-    let values = [1, req.body.carro, req.body.descripcion, "2018-01-01"];
+    let values = [req.body.usuario, req.body.carro, req.body.descripcion, req.body.fecha];
     
     // execute the insert statment
     sql.query(stmt, values, (err, results, fields) => {

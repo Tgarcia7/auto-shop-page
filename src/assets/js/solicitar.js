@@ -47,7 +47,7 @@ function cargarHorarios(){
             iFecha = new Date('2018-01-01 '+horasDisponibles[i]["horario"]);//se le agrega una fecha para utilizar la conversión de formato
             iFecha = formatAMPM(iFecha); 
 
-            $('#horario').append('<option value="'+horasDisponibles[i]["id"]+'">'+iFecha+'</option>');
+            $('#horario').append('<option value="'+horasDisponibles[i]["horario"]+'">'+iFecha+'</option>');
              
           }
 
@@ -55,6 +55,46 @@ function cargarHorarios(){
 
       }
     })
+
+}
+
+function guardarCita(){
+
+  var auto = $('#carro').val();
+  var usuario = $('#usuario').val();
+  var descripcion = $('#descripcion').val();
+  var fecha = new Date($('#datetimepicker1').data('DateTimePicker').date());//Obtener fecha seleccionada
+  fecha = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-' +  fecha.getDate() + ' ' + $('#horario').val();
+
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost:3000/citas",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "cache-control": "no-cache",
+      "Postman-Token": "de52df68-397b-417c-8d0f-c4abad952f3d"
+    },
+    "processData": false,
+    "data": '{"usuario":'+usuario+',"carro":'+auto+',"descripcion":"'+descripcion+'", "fecha":"'+fecha+'"}'
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    
+    cargarHorarios();
+    $('#descripcion').val('');
+
+    swal({
+      title: 'Listo',
+      text: "La cita ha sido solicitada con éxito",
+      type: 'success',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Aceptar'
+    });
+
+    });
 
 }
 
