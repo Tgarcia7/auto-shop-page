@@ -6,9 +6,9 @@ port = process.env.PORT || 3000;
 const mysql = require('mysql');
 // connection configurations
 const mc = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
+    host: 'wootit.cstmcmlaz2y7.us-east-1.rds.amazonaws.com',
+    user: 'wootroot',
+    password: 'n%bDdEPNAYn*',
     database: 'dbo'
 });
 
@@ -24,6 +24,8 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+app.use('/demo',express.static(__dirname + '/citas'));
 
 console.log('Citas RESTful API server started on: ' + port);
 

@@ -32,4 +32,12 @@ exports.listarPorUsuario = function(req, res) {
     res.json(auto);
   });
 
+  /*exports.agregarCita = function(req, res) {
+    Automovil.agregarCita(req, function(err, cita) {
+      if (err)
+        res.send(err);
+      res.json(req.body);
+    });
+  } */
+
 };

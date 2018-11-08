@@ -63,7 +63,7 @@
 				</div>
 			</div>	
 
-			<form name="formCita" id="formCita" method="post" action="http://localhost:3000/citas">
+			<form name="formCita" id="formCita" method="post" role="form">
 
 				<div class="row">
 
@@ -114,7 +114,7 @@
 							&nbsp;
 						</label>
 						<div class="form-group">
-							<button type="button" class="btn btn-block btn-default" title="Agregar auto" name="registrar" id="registrar" data-toggle="modal" data-target="#modalAgregarAuto">
+							<button type="button" class="btn btn-block btn-default" title="Agregar auto" name="registrarAuto" id="registrarAuto" data-toggle="modal" data-target="#modalAgregarAuto">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</div>	
@@ -139,7 +139,7 @@
 				<div class="row">
 
 					<div class='col-sm-4 col-sm-offset-4'>
-						<button type="submit" class="btn btn-block btn-success pull-right" name="registrar" id="registrar">
+						<button type="button" class="btn btn-block btn-success pull-right" name="registrar" id="registrar">
 							Solicitar cita <span class="glyphicon glyphicon-ok"></span>
 						</button>
 					</div>
@@ -164,7 +164,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-						<button type="button" class="btn btn-primary">Guardar</button>
+						<button type="button" id="btnSubmit" class="btn btn-primary">Guardar</button>
 					</div>
 				</div>
 			</div>

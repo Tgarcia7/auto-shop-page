@@ -1,6 +1,8 @@
 'use strict';
 var autoRouts = require('../controller/appController.js');
 
+var sql = require('../model/db');//temporal para pruebas
+
 module.exports = function(app) {  
   app.route('/auto')
     .get(autoRouts.listarTodos);
@@ -14,10 +16,11 @@ module.exports = function(app) {
   app.route('/citas/:fecha')
   .get(autoRouts.citas);
 
-  /*app.post('/citas', function(req, res){
+  app.route('/citas')
+  .post(function(req, res){
 
     let stmt = `INSERT INTO citas (cita_usuario, cita_placa, cita_descripcion, cita_fecha)
-                VALUES(?,?)`;
+                VALUES(?,?,?,?)`;
     let values = [1, req.body.carro, req.body.descripcion, "2018-01-01"];
     
     // execute the insert statment
@@ -26,7 +29,9 @@ module.exports = function(app) {
         return console.error(err.message);
       }
     });
-    console.log("listo");
-  });*/
+
+      res.json(req.body);
+      return console.error("agregado");;
+  });
 
 };
