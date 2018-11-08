@@ -6,8 +6,8 @@ port = process.env.PORT || 3000;
 const mysql = require('mysql');
 // connection configurations
 const mc = mysql.createConnection({
-    host: '',
-    user: '',
+    host: 'localhost',
+    user: 'root',
     password: '',
     database: 'dbo'
 });
