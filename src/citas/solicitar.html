@@ -20,9 +20,28 @@
 		<script src="../assets/js/general.js" type="text/javascript"></script>
 
 		<script type="text/javascript">
-			$( document ).ready(function() {
-				citas();
+		$( document ).ready(function() {
+			citas();
+		
+			var settings = {
+			"async": true,
+			"crossDomain": true,
+			"url": "http://localhost:3000/citas",
+			"method": "POST",
+			"headers": {
+				"Content-Type": "application/json",
+				"cache-control": "no-cache",
+				"Postman-Token": "de52df68-397b-417c-8d0f-c4abad952f3d"
+			},
+			"processData": false,
+			"data": "{\n\t\"carro\":275771,\n\t\"descripcion\":\"test\"\n}"
+			}
+
+			$.ajax(settings).done(function (response) {
+			console.log(response);
 			});
+
+		});
 		</script>
 
 		<link type="text/css" href="../assets/css/general.css" rel="stylesheet">

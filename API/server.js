@@ -1,6 +1,9 @@
 var express = require('express'),
 app = express(),
 bodyParser = require('body-parser');
+
+var path = require('path');
+
 port = process.env.PORT || 3000;
 
 const mysql = require('mysql');
@@ -14,6 +17,8 @@ const mc = mysql.createConnection({
 
 mc.connect();
 
+app.use('/tallerBilly', express.static(path.join(__dirname,'../src')));
+
 app.listen(port);
 
 // Add headers
@@ -25,7 +30,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/demo',express.static(__dirname + '/citas'));
+
 
 console.log('Citas RESTful API server started on: ' + port);
 
