@@ -1,0 +1,20 @@
+/*Centrado de ventanas modales*/
+.modal {
+  text-align: center !important;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '' !important;
+  display: inline-block !important;
+  height: 100% !important;
+  vertical-align: middle !important;
+  margin-right: -4px !important;
+}
+
+.modal-dialog {
+  display: inline-block !important;
+  text-align: left !important;
+  vertical-align: middle !important;
+}
+/*Centrado de ventanas modales*/

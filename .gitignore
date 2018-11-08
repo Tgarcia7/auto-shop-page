@@ -1,4 +1,4 @@
-#Files and folders to ignore
-
-db.js
-server.js
+api/model/db.js
+api/server.js
+API/model/db.js
+API/server.js
