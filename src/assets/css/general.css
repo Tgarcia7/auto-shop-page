@@ -30,3 +30,11 @@
 .margin-bottom-20{
   margin-bottom: 20px;
 }
+
+.row{
+  margin-top: 15px !important;
+}
+
+textarea{
+  resize: vertical;
+}

@@ -93,7 +93,7 @@
                     <th>Hora</th>
                     <th>Solicitante</th>
                     <th>Automóvil</th>
-                    <th>Acciones</th>
+                    <th class="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +101,19 @@
                     <td>8:00 am</td>
                     <td>Juan Vargas</td>
                     <td>Kia Rio</td>
-                    <td>&nbsp;</td>
+                    <td class="text-center">
+											<div class="btn-group" role="group" aria-label="acciones">
+												<button type="button" class="btn btn-success btn-sm" title="Aceptar cita">
+													<span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok"></i>
+												</button>
+												<button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" data-toggle="modal" data-target="#modalDetalles">
+													<span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm" title="Rechazar cita">
+													<span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove"></i>
+												</button>
+											</div>
+										</td>
                 </tr>
             </tbody>
           </table>
@@ -115,21 +127,86 @@
 		</div>
 
 		<!-- Modal agregar auto-->
-		<div class="modal fade" id="modalAgregarAuto" tabindex="-1" role="dialog" aria-labelledby="modalAgregarAuto" aria-hidden="true">
+		<div class="modal fade" id="modalDetalles" tabindex="-1" role="dialog" aria-labelledby="modalDetalles" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Agregar autom&oacute;vil</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+						<h4 class="modal-title" id="exampleModalLongTitle">
+							Detalles de la solicitud
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</h4>
 					</div>
 					<div class="modal-body">
-						...
+						
+						<input type="hidden" name="idCitaDetalles" name="idCitaDetalles" value="">
+
+						<div class="row">
+
+							<div class='col-sm-3'>
+								<label>
+									Solicitante
+								</label>
+							</div>
+
+							<div class='col-sm-9'>
+								<input type="text" readonly name="solicitanteDetalles" id="solicitanteDetalles" class="form-control" value="">
+							</div>
+		
+						</div>
+
+						<div class="row">
+
+							<div class='col-sm-3'>
+								<label>
+									Fecha de cita
+								</label>
+							</div>
+
+							<div class='col-sm-9'>
+								<input type="text" readonly name="fechaDetalles" id="fechaDetalles" class="form-control" value="">
+							</div>
+		
+						</div>
+
+						<div class="row">
+
+							<div class='col-sm-3'>
+								<label>
+									Autom&oacute;vil
+								</label>
+							</div>
+
+							<div class='col-sm-9'>
+								<input type="text" readonly name="automovilDetalles" id="automovilDetalles" class="form-control" value="">
+							</div>
+		
+						</div>
+
+						<div class="row">
+
+							<div class='col-sm-3'>
+								<label>
+									Descripci&oacute;n de la cita
+								</label>
+							</div>
+
+							<div class='col-sm-9'>
+									<textarea readonly name="descripcionDetalles" id="descripcionDetalles" class="form-control" value=""></textarea>	
+							</div>
+		
+						</div>
+
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-						<button type="button" id="btnSubmit" class="btn btn-primary">Guardar</button>
+						<button type="button" class="btn btn-success" title="Aceptar cita">
+							<span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok"></i>
+						</button>
+						<button type="button" class="btn btn-danger" title="Rechazar cita">
+							<span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove"></i>
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 					</div>
 				</div>
 			</div>

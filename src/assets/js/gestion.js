@@ -1,5 +1,9 @@
 function gestion(){
 
+  var hoy = new Date();
+
+  $('#fecha').val(hoy.getFullYear() + '-' + (hoy.getMonth()+1) + '-' +  hoy.getDate());
+
   initTableCitas();
   
 }
