@@ -22,3 +22,19 @@
 .swal2-popup {
   font-size: 1.6rem !important;
 }
+
+.margin-top-20{
+  margin-top: 20px;
+}
+
+.margin-bottom-20{
+  margin-bottom: 20px;
+}
+
+.row{
+  margin-top: 15px !important;
+}
+
+textarea{
+  resize: vertical;
+}
