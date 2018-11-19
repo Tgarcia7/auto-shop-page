@@ -5,6 +5,8 @@ function gestion(){
   $('#fecha').val(hoy.getFullYear() + '-' + (hoy.getMonth()+1) + '-' +  hoy.getDate());
 
   initTableCitas();
+
+  cargarHorarios();
   
 }
 
@@ -30,5 +32,23 @@ function initTableCitas(){
           "previous": "Anterior"
       }
     }
+  });
+}
+
+function cargarHorarios(){
+
+  //$('#carro').empty();
+  var fechaSeleccionada = $('#fecha').val();
+  $('#citas').DataTable().clear();
+
+  $.ajax({
+      type: 'GET',
+      url: "http://localhost:3000/horarioDisponible/"+fechaSeleccionada,
+      success:function(citas){
+        
+        console.log(citas);
+        //$('#citas').DataTable().row.add( [ 'Fiona White', 32, 'Edinburgh','sfa'] ).draw();
+
+      }
   });
 }
