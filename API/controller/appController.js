@@ -31,7 +31,14 @@ exports.listarPorUsuario = function(req, res) {
       res.send(err);
     res.json(auto);
   });
-
+  };
+  exports.HorarioDisponible_Ocupado = function(req, res){
+  Automovil.HorarioDisponible_Ocupado(req.params.fecha, function(err, hor_disp) {
+    if (err)
+      res.send(err);
+    res.json(hor_disp);
+  });
+};
   /*exports.agregarCita = function(req, res) {
     Automovil.agregarCita(req, function(err, cita) {
       if (err)
@@ -39,5 +46,3 @@ exports.listarPorUsuario = function(req, res) {
       res.json(req.body);
     });
   } */
-
-};
