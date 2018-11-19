@@ -59,4 +59,21 @@ Automovil.listarPorFecha = function (fecha, callback){
     });
 };
 
+Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, callback){
+    sql.query("SELECT c.cita_id, c.cita_usuario, c.cita_placa, c.cita_descripcion, hd.id AS horario_id, hd.horario\
+    FROM citas c\
+    RIGHT JOIN horario_disponible hd\
+        ON TIME(cita_fecha) = hd.horario\
+        AND DATE(cita_fecha) = ?\
+    WHERE hd.estado = '1'\
+    ORDER BY horario;", horario_disponible_Ocupado, function (err, res) {             
+        if(err) {
+            console.log("error: ", err);
+            callback(err, null);
+        }
+        else{
+            callback(null, res);
+        }
+    });
+    };
 module.exports = Automovil;

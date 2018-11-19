@@ -33,5 +33,7 @@ module.exports = function(app) {
       res.json(req.body);
       return console.error("agregado");;
   });
+  app.route('/horarioDisponible/:fecha')
+  .get(autoRouts.HorarioDisponible_Ocupado);
 
 };
