@@ -51,6 +51,7 @@ function cargarHorarios(){
         var auto = "";
         var acciones = "";
         var idCita = "";
+        var estado = "";
 
         $.each(citas, function(i, item) {
           
@@ -61,22 +62,52 @@ function cargarHorarios(){
           horario = formatAMPM(horario);
           usuario = item["nombreCompleto"];
           auto = item["automovil"];
+          estado = item["estado"];
 
-          if ( idCita !== null ){
+          if ( estado == '1' ){//cita aprobada
             acciones = '\
                       <div class="btn-group" role="group" aria-label="acciones">\
-                      <button type="button" class="btn btn-success btn-sm" title="Aceptar cita" onClick="aceptar('+idCita+')">\
-                        <span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok"></i>\
+                      <button type="button" class="btn btn-success btn-sm cursor-default">\
+                        <span>Aprobada</span>\
                       </button>\
                       <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
-                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt"></i>\
+                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
-                      <button type="button" class="btn btn-danger btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
-                        <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove"></i>\
+                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
+                        <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>\
                       </button>\
                     </div>';
-          }else{
-            acciones = "";
+          }
+          if ( estado == '0' ){//cita rechazada
+            acciones = '\
+                      <div class="btn-group" role="group" aria-label="acciones">\
+                      <button type="button" class="btn btn-default btn-sm" title="Aceptar cita" onClick="aceptar('+idCita+')">\
+                        <span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
+                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-danger btn-sm cursor-default">\
+                        <span>Rechazada</span>\
+                      </button>\
+                    </div>';
+          }
+          if ( estado == '2' ){//cita pendiente
+            acciones = '\
+                      <div class="btn-group" role="group" aria-label="acciones">\
+                      <button type="button" class="btn btn-default btn-sm" title="Aceptar cita" onClick="aceptar('+idCita+')">\
+                        <span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
+                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
+                        <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>\
+                      </button>\
+                    </div>';
+          }
+          if ( estado == null ){//no hay cita
+            acciones = "<span class='label label-default available'>Disponible</span>";
           }
 
           $('#citas').DataTable().row.add( [ horario, usuario, auto, acciones] ).draw();
@@ -87,4 +118,16 @@ function cargarHorarios(){
 
       }
   });
+}
+
+function aceptar(idCita){
+
+}
+
+function rechazar(idCita){
+  
+}
+
+function detalles(idCita){
+  $('#modalDetalles').modal('show'); 
 }
