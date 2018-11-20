@@ -73,7 +73,7 @@
           </label>
 
           <div class="input-group">
-            <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="basic-addon1">
+            <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="basic-addon1" onchange="cargarHorarios()">
             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-calendar"></i></span>
           </div>
         </div>
@@ -83,17 +83,14 @@
       <div class="row margin-top-20">
 
         <div class='col-sm-8 col-sm-offset-2'>
-          <label class=" margin-bottom-20">
-            Citas del día
-          </label>
 
           <table id="citas" class="display">
             <thead>
                 <tr>
-                    <th>Hora</th>
-                    <th>Solicitante</th>
-                    <th>Automóvil</th>
-                    <th class="text-center">Acciones</th>
+                    <th class="text-center" width="13%">Hora</th>
+                    <th class="text-center">Solicitante</th>
+                    <th class="text-center" width="15%">Automóvil</th>
+                    <th class="text-center" width="40%">Acciones</th>
                 </tr>
             </thead>
             <tbody>
