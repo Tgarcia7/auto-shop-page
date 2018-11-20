@@ -38,7 +38,6 @@ function initTableCitas(){
 
 function cargarHorarios(){
 
-  //$('#carro').empty();
   var fechaSeleccionada = $('#fecha').val();
   $('#citas').DataTable().clear();
 

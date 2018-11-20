@@ -60,7 +60,7 @@ Automovil.listarPorFecha = function (fecha, callback){
 };
 
 Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, callback){
-    sql.query("SELECT c.cita_id, c.cita_usuario, c.cita_descripcion, hd.id AS horario_id, c.estado\
+    sql.query("SELECT c.cita_id, c.cita_usuario, c.cita_descripcion, hd.id AS horario_id, c.estado,\
      hd.horario, CONCAT(a.auto_marca, ' ', a.auto_modelo) AS automovil, CONCAT(u.nombre, ' ', u.apellidos) AS nombreCompleto\
     FROM citas c\
     RIGHT JOIN horario_disponible hd\
