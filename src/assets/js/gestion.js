@@ -52,6 +52,7 @@ function cargarHorarios(){
         var acciones = "";
         var idCita = "";
         var estado = "";
+        var descripcion = "";
 
         $.each(citas, function(i, item) {
           
@@ -63,6 +64,8 @@ function cargarHorarios(){
           usuario = item["nombreCompleto"];
           auto = item["automovil"];
           estado = item["estado"];
+          descripcion = item["cita_descripcion"];
+          fechaCompleta = item["cita_fecha"];
 
           if ( estado == '1' ){//cita aprobada
             acciones = '\
@@ -70,7 +73,7 @@ function cargarHorarios(){
                       <button type="button" class="btn btn-success btn-sm cursor-default">\
                         <span>Aprobada</span>\
                       </button>\
-                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles">\
                         <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
                       <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
@@ -84,7 +87,7 @@ function cargarHorarios(){
                       <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')">\
                         <span class="hidden-xs">Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
                       </button>\
-                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles"">\
                         <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
                       <button type="button" class="btn btn-danger btn-sm cursor-default">\
@@ -98,7 +101,7 @@ function cargarHorarios(){
                       <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')">\
                         <span class="hidden-xs">Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
                       </button>\
-                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles">\
                         <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
                       <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
@@ -206,6 +209,11 @@ function rechazar(idCita){
 
 }
 
-function detalles(idCita){
-  $('#modalDetalles').modal('show'); 
+function detalles(hora, solicitante, automovil, descripcion){
+		
+  $('#fechaDetalles').val(hora);
+  $('#solicitanteDetalles').val(solicitante);
+  $('#automovilDetalles').val(automovil);
+  $('#descripcionDetalles').val(descripcion);
+
 }
