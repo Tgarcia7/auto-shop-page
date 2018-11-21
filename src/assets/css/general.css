@@ -38,3 +38,11 @@
 textarea{
   resize: vertical;
 }
+
+.available{
+  padding: 6px;
+}
+
+.cursor-default{
+  cursor: default;
+}

@@ -51,6 +51,8 @@ function cargarHorarios(){
         var auto = "";
         var acciones = "";
         var idCita = "";
+        var estado = "";
+        var descripcion = "";
 
         $.each(citas, function(i, item) {
           
@@ -61,22 +63,54 @@ function cargarHorarios(){
           horario = formatAMPM(horario);
           usuario = item["nombreCompleto"];
           auto = item["automovil"];
+          estado = item["estado"];
+          descripcion = item["cita_descripcion"];
+          fechaCompleta = item["cita_fecha"];
 
-          if ( idCita !== null ){
+          if ( estado == '1' ){//cita aprobada
             acciones = '\
                       <div class="btn-group" role="group" aria-label="acciones">\
-                      <button type="button" class="btn btn-success btn-sm" title="Aceptar cita" onClick="aceptar('+idCita+')">\
-                        <span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok"></i>\
+                      <button type="button" class="btn btn-success btn-sm cursor-default">\
+                        <span>Aprobada</span>\
                       </button>\
-                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles('+idCita+')">\
-                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt"></i>\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles">\
+                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
-                      <button type="button" class="btn btn-danger btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
-                        <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove"></i>\
+                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
+                        <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>\
                       </button>\
                     </div>';
-          }else{
-            acciones = "";
+          }
+          if ( estado == '0' ){//cita rechazada
+            acciones = '\
+                      <div class="btn-group" role="group" aria-label="acciones">\
+                      <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')">\
+                        <span class="hidden-xs">Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles"">\
+                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-danger btn-sm cursor-default">\
+                        <span>Rechazada</span>\
+                      </button>\
+                    </div>';
+          }
+          if ( estado == '2' ){//cita pendiente
+            acciones = '\
+                      <div class="btn-group" role="group" aria-label="acciones">\
+                      <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')">\
+                        <span class="hidden-xs">Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles">\
+                        <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
+                      </button>\
+                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
+                        <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>\
+                      </button>\
+                    </div>';
+          }
+          if ( estado == null ){//no hay cita
+            acciones = "<span class='label label-default available'>Disponible</span>";
           }
 
           $('#citas').DataTable().row.add( [ horario, usuario, auto, acciones] ).draw();
@@ -87,4 +121,99 @@ function cargarHorarios(){
 
       }
   });
+}
+
+function aceptar(idCita){
+
+  swal({
+    title: 'Confirmación',
+    text: '¿Desea aprobar la cita seleccionada?',
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#5cb85c',
+    confirmButtonText: "Sí, aceptar",
+    cancelButtonText: "No, cancelar",
+  }).then(function(result) {
+    
+    if ( result.value ){
+      $.ajax({
+        type: 'GET',
+        url: "http://localhost:3000/aceptarCita/"+idCita,
+        success:function(resultado){
+          swal({
+            title: '¡Listo!',
+            text: 'La cita ha sido aprobada correctamente.',
+            type: 'success',
+            confirmButtonColor: '#5cb85c',
+            confirmButtonText: 'Aceptar',
+          }).then(function() {
+            cargarHorarios();  
+          });
+        },
+        error:function(resultado){
+          swal({
+            title: 'Error',
+            text: 'Hubo un problema para aprobar la cita, conmuníquese con el encargado del sistema.',
+            type: 'error',
+            confirmButtonColor: '#5cb85c',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      });
+    }
+    
+  });	
+
+}
+
+function rechazar(idCita){
+
+  swal({
+    title: 'Confirmación',
+    text: '¿Desea rechazar la cita seleccionada?',
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#5cb85c',
+    confirmButtonText: "Sí, rechazar",
+    cancelButtonText: "No, cancelar",
+  }).then(function(result) {
+    
+    if ( result.value ){
+      $.ajax({
+        type: 'GET',
+        url: "http://localhost:3000/rechazarCita/"+idCita,
+        success:function(resultado){
+          swal({
+            title: '¡Listo!',
+            text: 'La cita ha sido rechazada correctamente.',
+            type: 'success',
+            confirmButtonColor: '#5cb85c',
+            confirmButtonText: 'Aceptar',
+          }).then(function() {
+            cargarHorarios();  
+          });
+        },
+        error:function(resultado){
+          swal({
+            title: 'Error',
+            text: 'Hubo un problema para rechazar la cita, conmuníquese con el encargado del sistema.',
+            type: 'error',
+            confirmButtonColor: '#5cb85c',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      });
+    }
+    
+  });	
+
+}
+
+function detalles(hora, solicitante, automovil, descripcion){
+		
+  $('#fechaDetalles').val(hora);
+  $('#solicitanteDetalles').val(solicitante);
+  $('#automovilDetalles').val(automovil);
+  $('#descripcionDetalles').val(descripcion);
+
 }
