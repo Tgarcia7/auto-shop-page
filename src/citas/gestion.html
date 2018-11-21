@@ -48,8 +48,8 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			  <ul class="nav navbar-nav navbar-right">
-				<li><a href="solicitar.html">Solicitud citas</a></li>
-				<li><a href="gestion.html">Gestión de citas</a></li>
+				<li><a href="#">Enlace 1</a></li>
+				<li><a href="#">Enlace 2</a></li>
 			  </ul>
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -93,6 +93,26 @@
                     <th class="text-center" width="40%">Acciones</th>
                 </tr>
             </thead>
+            <tbody>
+                <tr>
+                    <td>8:00 am</td>
+                    <td>Juan Vargas</td>
+                    <td>Kia Rio</td>
+                    <td class="text-center">
+											<div class="btn-group" role="group" aria-label="acciones">
+												<button type="button" class="btn btn-success btn-sm" title="Aceptar cita">
+													<span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok"></i>
+												</button>
+												<button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" data-toggle="modal" data-target="#modalDetalles">
+													<span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-sm" title="Rechazar cita">
+													<span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove"></i>
+												</button>
+											</div>
+										</td>
+                </tr>
+            </tbody>
           </table>
 
         </div>
@@ -103,7 +123,7 @@
 
 		</div>
 
-		<!-- Modal detalles-->
+		<!-- Modal agregar auto-->
 		<div class="modal fade" id="modalDetalles" tabindex="-1" role="dialog" aria-labelledby="modalDetalles" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -177,12 +197,12 @@
 
 					</div>
 					<div class="modal-footer">
-						<!--<button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar()">
-							<span>Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>
+						<button type="button" class="btn btn-success" title="Aceptar cita">
+							<span class="hidden-xs">Aceptar</span> <i class="glyphicon glyphicon-ok"></i>
 						</button>
-						<button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar()">
-							<span>Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>
-						</button>-->
+						<button type="button" class="btn btn-danger" title="Rechazar cita">
+							<span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove"></i>
+						</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 					</div>
 				</div>
