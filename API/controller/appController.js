@@ -39,6 +39,22 @@ exports.listarPorUsuario = function(req, res) {
     res.json(hor_disp);
   });
 };
+   //metado aceptar
+ exports.AceptarCitas = function(req, res){
+   Automovil.AceptarCitas(req.params.status1, function(err, acept){
+     if(err)
+     res.send(err);
+     res.json(acept)
+   });
+ };
+   //metodo de rechazar
+ exports.RechazarCitas = function(req, res){
+   Automovil.RechazarCitas(req.params.status0, function(err, rechazar){
+    if(err)
+    res.send(err);
+    res.json(rechazar)
+   });
+ };
   /*exports.agregarCita = function(req, res) {
     Automovil.agregarCita(req, function(err, cita) {
       if (err)

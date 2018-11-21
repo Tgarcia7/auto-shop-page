@@ -35,5 +35,12 @@ module.exports = function(app) {
   });
   app.route('/horarioDisponible/:fecha')
   .get(autoRouts.HorarioDisponible_Ocupado);
+  
+  // metodo aceptar
+  app.route('/citas/:aceptar')
+  .get(autoRouts.AceptarCitas);
 
+  //metodo de rechazar
+  app.route('/citas/:rechazar')
+  .get(autoRouts.RechazarCitas);
 };
