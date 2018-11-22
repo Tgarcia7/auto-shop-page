@@ -1,5 +1,7 @@
 function gestion(){
 
+  $('#notificacionFechaPasada').hide();
+
   var hoy = new Date();
 
   $('#fecha').val(hoy.getFullYear() + '-' + (hoy.getMonth()+1) + '-' +  hoy.getDate());
@@ -53,6 +55,9 @@ function cargarHorarios(){
         var idCita = "";
         var estado = "";
         var descripcion = "";
+        var disabled = "";
+        var hoy = new Date();
+        hoy = hoy.getFullYear() + '-' + (hoy.getMonth()+1) + '-' +  hoy.getDate();
 
         $.each(citas, function(i, item) {
           
@@ -66,17 +71,26 @@ function cargarHorarios(){
           estado = item["estado"];
           descripcion = item["cita_descripcion"];
           fechaCompleta = item["cita_fecha"];
+          
+          if ( fechaSeleccionada < hoy ){
+            disabled = "disabled";
+            $('#notificacionFechaPasada').show("slow");
+          }else{
+            disabled = "";
+            $('#notificacionFechaPasada').hide("slow");
+          }
+          
 
           if ( estado == '1' ){//cita aprobada
             acciones = '\
                       <div class="btn-group" role="group" aria-label="acciones">\
-                      <button type="button" class="btn btn-success btn-sm cursor-default">\
-                        <span>Aprobada</span>\
+                      <button type="button" class="btn btn-success btn-sm cursor-default" title="Cita aprobada">\
+                        <span class="hidden-xs">Abrobada</span> <i class="glyphicon glyphicon-ok"></i>\
                       </button>\
                       <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles">\
                         <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
-                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')" '+disabled+'>\
                         <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>\
                       </button>\
                     </div>';
@@ -84,27 +98,27 @@ function cargarHorarios(){
           if ( estado == '0' ){//cita rechazada
             acciones = '\
                       <div class="btn-group" role="group" aria-label="acciones">\
-                      <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')" '+disabled+'>\
                         <span class="hidden-xs">Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
                       </button>\
                       <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles"">\
                         <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
-                      <button type="button" class="btn btn-danger btn-sm cursor-default">\
-                        <span>Rechazada</span>\
+                      <button type="button" class="btn btn-danger btn-sm cursor-default" title="Cita rechazada">\
+                        <span class="hidden-xs">Rechazada</span>  <i class="glyphicon glyphicon-remove"></i>\
                       </button>\
                     </div>';
           }
           if ( estado == '2' ){//cita pendiente
             acciones = '\
                       <div class="btn-group" role="group" aria-label="acciones">\
-                      <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Aprobar cita" onClick="aceptar('+idCita+')" '+disabled+'>\
                         <span class="hidden-xs">Aprobar</span> <i class="glyphicon glyphicon-ok text-success"></i>\
                       </button>\
                       <button type="button" class="btn btn-default btn-sm" title="Ver detalles de la cita" onClick="detalles(\''+fechaCompleta+'\', \''+usuario+'\', \''+auto+'\', \''+descripcion+'\')" data-toggle="modal" data-target="#modalDetalles">\
                         <span class="hidden-xs">Detalles</span>  <i class="glyphicon glyphicon-list-alt text-info"></i>\
                       </button>\
-                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')">\
+                      <button type="button" class="btn btn-default btn-sm" title="Rechazar cita" onClick="rechazar('+idCita+')" '+disabled+'>\
                         <span class="hidden-xs">Rechazar</span>  <i class="glyphicon glyphicon-remove text-danger"></i>\
                       </button>\
                     </div>';
@@ -118,6 +132,8 @@ function cargarHorarios(){
         });
 
         $('#citas > tbody > tr > td').addClass('text-center');
+        //$('#citas > tbody > tr > td:nth-child(2)').addClass('hidden-xs');
+        $('#citas > tbody > tr > td:nth-child(3)').addClass('hidden-xs');
 
       }
   });
@@ -126,8 +142,8 @@ function cargarHorarios(){
 function aceptar(idCita){
 
   swal({
-    title: 'Confirmación',
-    text: '¿Desea aprobar la cita seleccionada?',
+    title: '¿Está seguro(a)?',
+    text: 'Que desea aprobar la cita seleccionada',
     type: 'question',
     showCancelButton: true,
     confirmButtonColor: '#5cb85c',
@@ -138,22 +154,27 @@ function aceptar(idCita){
     if ( result.value ){
       $.ajax({
         type: 'GET',
-        url: "http://localhost:3000/aceptarCita/"+idCita,
+        url: "http://localhost:3000/citasAceptar/"+idCita,
         success:function(resultado){
-          swal({
-            title: '¡Listo!',
-            text: 'La cita ha sido aprobada correctamente.',
-            type: 'success',
-            confirmButtonColor: '#5cb85c',
-            confirmButtonText: 'Aceptar',
-          }).then(function() {
-            cargarHorarios();  
+          
+          cargarHorarios();
+          const toast = swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
           });
+          
+          toast({
+            type: 'success',
+            title: 'La cita ha sido aprobada correctamente'
+          })
+
         },
         error:function(resultado){
           swal({
             title: 'Error',
-            text: 'Hubo un problema para aprobar la cita, conmuníquese con el encargado del sistema.',
+            text: 'Hubo un problema para aprobar la cita, comuníquese con el encargado del sistema.',
             type: 'error',
             confirmButtonColor: '#5cb85c',
             confirmButtonText: 'Aceptar'
@@ -169,11 +190,11 @@ function aceptar(idCita){
 function rechazar(idCita){
 
   swal({
-    title: 'Confirmación',
-    text: '¿Desea rechazar la cita seleccionada?',
+    title: '¿Está seguro(a)?',
+    text: 'Que desea rechazar la cita seleccionada',
     type: 'question',
     showCancelButton: true,
-    confirmButtonColor: '#5cb85c',
+    confirmButtonColor: '#d9534f',
     confirmButtonText: "Sí, rechazar",
     cancelButtonText: "No, cancelar",
   }).then(function(result) {
@@ -181,22 +202,27 @@ function rechazar(idCita){
     if ( result.value ){
       $.ajax({
         type: 'GET',
-        url: "http://localhost:3000/rechazarCita/"+idCita,
+        url: "http://localhost:3000/citasRechazar/"+idCita,
         success:function(resultado){
-          swal({
-            title: '¡Listo!',
-            text: 'La cita ha sido rechazada correctamente.',
-            type: 'success',
-            confirmButtonColor: '#5cb85c',
-            confirmButtonText: 'Aceptar',
-          }).then(function() {
-            cargarHorarios();  
+          
+          cargarHorarios();
+          const toast = swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
           });
+          
+          toast({
+            type: 'success',
+            title: 'La cita ha sido rechazada correctamente'
+          })
+
         },
         error:function(resultado){
           swal({
             title: 'Error',
-            text: 'Hubo un problema para rechazar la cita, conmuníquese con el encargado del sistema.',
+            text: 'Hubo un problema para rechazar la cita, comuníquese con el encargado del sistema.',
             type: 'error',
             confirmButtonColor: '#5cb85c',
             confirmButtonText: 'Aceptar'

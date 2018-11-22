@@ -21,7 +21,7 @@ app.use('/tallerBilly', express.static(path.join(__dirname,'../src')));
 
 app.listen(port);
 
-// Add headers
+// Headers for Ajax
 app.use(function (req, res, next) {
     
     res.header("Access-Control-Allow-Origin", "*");
@@ -29,8 +29,6 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-
-
 
 console.log('Citas RESTful API server started on: ' + port);
 
