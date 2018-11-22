@@ -4,6 +4,7 @@ var autoRouts = require('../controller/appController.js');
 var sql = require('../model/db');//temporal para pruebas
 
 module.exports = function(app) {  
+  
   app.route('/auto')
     .get(autoRouts.listarTodos);
    
@@ -33,14 +34,16 @@ module.exports = function(app) {
       res.json(req.body);
       return console.error("agregado");;
   });
+
   app.route('/horarioDisponible/:fecha')
   .get(autoRouts.HorarioDisponible_Ocupado);
   
   // metodo aceptar
-  app.route('/citas/:aceptar')
+  app.route('/citasAceptar/:idCita')
   .get(autoRouts.AceptarCitas);
 
   //metodo de rechazar
-  app.route('/citas/:rechazar')
+  app.route('/citasRechazar/:idCita')
   .get(autoRouts.RechazarCitas);
+
 };

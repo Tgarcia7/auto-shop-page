@@ -80,15 +80,34 @@ Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, call
             callback(null, res);
         }
     });
-    };
-    // metodo aceptar
-Automovil.AceptarCitas = function (AceptarCitas, callback){
-    sql.query("UPDATE dbo.cita\
-    SET estado = '1' WHERE cita_id = ?;")
+};
+
+//Método aceptar
+Automovil.AceptarCitas = function (idCita, callback){
+    sql.query("UPDATE dbo.citas\
+    SET estado = '1' WHERE cita_id = ?;", idCita, function (err, res) {             
+        if(err) {
+            console.log("error: ", err);
+            callback(err, null);
+        }
+        else{
+            callback(null, res);
+        }
+    });
 }
-   // metodo rechazar
-   Automovil.RechazarCitas = function (RechazarCitas, callback){
-       sql.query("UPDATE dbo.cita\
-       SET estado = '0' WHERE cita_id = ?;")
-   }
+   
+//Método rechazar
+Automovil.RechazarCitas = function (idCita, callback){
+    sql.query("UPDATE dbo.citas\
+    SET estado = '0' WHERE cita_id = ?;", idCita, function (err, res) {             
+        if(err) {
+            console.log("error: ", err);
+            callback(err, null);
+        }
+        else{
+            callback(null, res);
+        }
+    });
+}
+
 module.exports = Automovil;

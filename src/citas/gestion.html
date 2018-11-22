@@ -73,12 +73,23 @@
           </label>
 
           <div class="input-group">
-            <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="basic-addon1" onchange="cargarHorarios()">
+            <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="basic-addon1" onchange="cargarHorarios()" onkeyup="cargarHorarios()">
             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-calendar"></i></span>
           </div>
         </div>
 
-      </div>
+			</div>
+			
+			<div class="row" id="notificacionFechaPasada">
+
+				<div class="col-sm-8 col-sm-offset-2">
+					<div class="alert alert-info alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<i class="glyphicon glyphicon-info-sign"></i> Las solicitudes de días anteriores no pueden ser aprobadas ni rechazadas. 
+					</div>
+				</div>
+
+			</div>
 
       <div class="row margin-top-20">
 
@@ -89,7 +100,7 @@
                 <tr>
                     <th class="text-center" width="13%">Hora</th>
                     <th class="text-center">Solicitante</th>
-                    <th class="text-center" width="15%">Automóvil</th>
+                    <th class="text-center hidden-xs" width="15%">Automóvil</th>
                     <th class="text-center" width="40%">Acciones</th>
                 </tr>
             </thead>
