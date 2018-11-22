@@ -61,7 +61,7 @@ Automovil.listarPorFecha = function (fecha, callback){
 
 Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, callback){
     sql.query("SELECT c.cita_id, c.cita_usuario, c.cita_descripcion, DATE_FORMAT(c.cita_fecha, '%e-%m-%Y, %h:%i %p') AS cita_fecha , hd.id AS horario_id, c.estado,\
-     hd.horario, CONCAT(a.auto_marca, ' ', a.auto_modelo) AS automovil, CONCAT(u.nombre, ' ', u.apellidos) AS nombreCompleto\
+    hd.horario, CONCAT(a.auto_marca, ' ', a.auto_modelo) AS automovil, CONCAT(u.nombre, ' ', u.apellidos) AS nombreCompleto\
     FROM citas c\
     RIGHT JOIN horario_disponible hd\
         ON TIME(cita_fecha) = hd.horario\
@@ -81,4 +81,14 @@ Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, call
         }
     });
     };
+    // metodo aceptar
+Automovil.AceptarCitas = function (AceptarCitas, callback){
+    sql.query("UPDATE dbo.cita\
+    SET estado = '1' WHERE cita_id = ?;")
+}
+   // metodo rechazar
+   Automovil.RechazarCitas = function (RechazarCitas, callback){
+       sql.query("UPDATE dbo.cita\
+       SET estado = '0' WHERE cita_id = ?;")
+   }
 module.exports = Automovil;
