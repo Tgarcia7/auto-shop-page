@@ -13,31 +13,56 @@ exports.listarTodos = function(req, res){
 };
 
 exports.listarPorUsuario = function(req, res) {
-    Automovil.listarPorUsuario(req.params.usuario, function(err, auto) {
-      if (err)
-        res.send(err);
-      res.json(auto);
-    });
-  };
+  Automovil.listarPorUsuario(req.params.usuario, function(err, auto) {
+    if (err)
+      res.send(err);
+    res.json(auto);
+  });
+};
 
-  exports.agregarAuto = function(req, res) {
+exports.agregarAuto = function(req, res) {
     
-    res.json(req.body);
-  };
+  res.json(req.body);
+};
 
- exports.citas = function(req, res){
+exports.citas = function(req, res){
   Automovil.listarPorFecha(req.params.fecha, function(err, auto) {
     if (err)
       res.send(err);
     res.json(auto);
   });
-
-  /*exports.agregarCita = function(req, res) {
-    Automovil.agregarCita(req, function(err, cita) {
-      if (err)
-        res.send(err);
-      res.json(req.body);
-    });
-  } */
-
 };
+
+exports.HorarioDisponible_Ocupado = function(req, res){
+  Automovil.HorarioDisponible_Ocupado(req.params.fecha, function(err, hor_disp) {
+    if (err)
+      res.send(err);
+    res.json(hor_disp);
+  });
+};
+
+//metado aceptar
+exports.AceptarCitas = function(req, res){
+  Automovil.AceptarCitas(req.params.idCita, function(err, aceptar){
+    if(err)
+    res.send(err);
+    res.json(aceptar)
+  });
+};
+
+//metodo de rechazar
+exports.RechazarCitas = function(req, res){
+  Automovil.RechazarCitas(req.params.idCita, function(err, rechazar){
+  if(err)
+  res.send(err);
+  res.json(rechazar)
+  });
+};
+
+/*exports.agregarCita = function(req, res) {
+  Automovil.agregarCita(req, function(err, cita) {
+    if (err)
+      res.send(err);
+    res.json(req.body);
+  });
+} */
