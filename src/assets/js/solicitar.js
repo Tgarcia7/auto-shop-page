@@ -66,35 +66,40 @@ function guardarCita(){
   var fecha = new Date($('#datetimepicker1').data('DateTimePicker').date());//Obtener fecha seleccionada
   fecha = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-' +  fecha.getDate() + ' ' + $('#horario').val();
 
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost:3000/citas",
-    "method": "POST",
-    "headers": {
-      "Content-Type": "application/json",
-      "cache-control": "no-cache",
-      "Postman-Token": "de52df68-397b-417c-8d0f-c4abad952f3d"
-    },
-    "processData": false,
-    "data": '{"usuario":'+usuario+',"carro":'+auto+',"descripcion":"'+descripcion+'", "fecha":"'+fecha+'"}'
-  }
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
+  var form = $("#formCita");
+  form.validate();
     
-    cargarHorarios();
-    $('#descripcion').val('');
+  if (form.valid()) {
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:3000/citas",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "cache-control": "no-cache",
+        "Postman-Token": "de52df68-397b-417c-8d0f-c4abad952f3d"
+      },
+      "processData": false,
+      "data": '{"usuario":'+usuario+',"carro":'+auto+',"descripcion":"'+descripcion+'", "fecha":"'+fecha+'"}'
+    }
 
-    swal({
-      title: 'Listo',
-      text: "La cita ha sido solicitada con éxito",
-      type: 'success',
-      confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Aceptar'
-    });
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      
+      cargarHorarios();
+      $('#descripcion').val('');
+
+      swal({
+        title: 'Listo',
+        text: "La cita ha sido solicitada con éxito",
+        type: 'success',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar'
+      });
 
     });
+  }  
 
 }
 

@@ -45,4 +45,7 @@ textarea{
 
 .cursor-default{
   cursor: default;
+  
+label.error{
+  color: #dc3545;
 }
