@@ -23,7 +23,7 @@
 
 		<script type="text/javascript">
 			$( document ).ready(function() {
-        gestion();
+				gestion();
 			});
 		</script>
 
@@ -60,7 +60,7 @@
 			<div class="row">
 				<div class='col-sm-8 col-sm-offset-2'>
 					<div class="page-header">
-					  <h1>Panel de control <small>gesti&oacute;n de solicitudes</small></h1>
+					  <h1>Panel de control <small class="hidden-xs">gesti&oacute;n de solicitudes</small></h1>
 					</div>
 				</div>
 			</div>	
@@ -72,13 +72,12 @@
             Fecha
           </label>
 
-          <div class="input-group">
+          <div class="input-group col-xs-12">
             <input type="date" class="form-control" name="fecha" id="fecha" aria-describedby="basic-addon1" onchange="cargarHorarios()" onkeyup="cargarHorarios()">
-            <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-calendar"></i></span>
           </div>
         </div>
 
-			</div>
+			</div><br>
 			
 			<div class="row" id="notificacionFechaPasada">
 

@@ -18,11 +18,12 @@ function gestion(){
 function initTableCitas(){
   $('#citas').DataTable({
     "ordering": false,
+    paging: false,
     language: {
       "decimal": "",
       "emptyTable": "No hay información",
-      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-      "infoEmpty": "Mostrando 0 de 0 registros",
+      "info": "Horario de atención de clientes",
+      "infoEmpty": "Horario de atención de clientes",
       "infoFiltered": "(Filtrado de _MAX_ registro(s))",
       "infoPostFix": "",
       "thousands": ",",
