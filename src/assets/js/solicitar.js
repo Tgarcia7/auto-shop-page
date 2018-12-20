@@ -1,5 +1,5 @@
 telegramBot = "https://api.telegram.org/bot687253249:AAH2AbmOPleH4VhYxNpE2bDPePLk2zrOx0o/sendmessage?";
-telegramChatBilly = 945644448;
+telegramChatBilly = 685590582;
 
 function citas(){
 
