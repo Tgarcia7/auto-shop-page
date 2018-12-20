@@ -111,4 +111,19 @@ Automovil.RechazarCitas = function (idCita, callback){
     });
 }
 
+//Método para mostrar el nombre del usuario
+Automovil.nombreUsuario = function (idUsuario, callback){   
+    sql.query("SELECT CONCAT(nombre, ' ', apellidos) AS nombreCompleto\
+    FROM usuario\
+    WHERE id = ?;", idUsuario, function (err, res) {      
+        if(err) {
+            console.log("error: ", err);
+            callback(err, null);
+        }
+        else{
+            callback(null, res);
+        }
+    });
+}
+
 module.exports = Automovil;

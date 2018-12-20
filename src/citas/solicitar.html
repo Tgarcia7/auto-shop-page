@@ -53,6 +53,7 @@
 			  <ul class="nav navbar-nav navbar-right">
 					<li><a href="solicitar.html">Solicitud citas</a></li>
 					<li><a href="gestion.html">Gestión de citas</a></li>
+					<li><a><i class="glyphicon glyphicon-user"></i> <span id="usuarioNombre">Usuario</span></a></li>
 			  </ul>
 			</div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -169,11 +170,58 @@
 								</h4>
 					</div>
 					<div class="modal-body">
-						...
+						
+						
+						<form name="formAuto" id="formAuto" method="post" role="form">
+								
+							<div class="row">
+			
+								<div class='col-sm-6 col-sm-offset-3'>
+									<label>
+										Placa
+									</label>
+			
+									<div class="form-group">
+										<input type="text" name="placa" id="placa" class="form-control" required>
+									</div>
+								</div>
+			
+							</div>
+			
+							<div class="row">
+			
+								<div class='col-sm-6 col-sm-offset-3'>
+									<label>
+										Marca
+									</label>
+			
+									<div class="form-group">
+										<input type="text" name="marca" id="marca" class="form-control" required>
+									</div>
+								</div>
+			
+							</div>
+			
+							<div class="row">
+			
+								<div class='col-sm-6 col-sm-offset-3'>
+									<label>
+										Modelo
+									</label>
+			
+									<div class="form-group">
+										<input type="text" name="modelo" id="modelo" class="form-control" required>
+									</div>
+								</div>
+			
+							</div>
+						</form>	
+
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-						<button type="button" id="btnSubmit" class="btn btn-primary">Guardar</button>
+						<button type="button" id="btnSubmit" class="btn btn-primary" onClick="guardarAuto();">Guardar</button>
 					</div>
 				</div>
 			</div>
