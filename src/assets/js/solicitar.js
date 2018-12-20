@@ -1,3 +1,6 @@
+telegramBot = "https://api.telegram.org/bot687253249:AAH2AbmOPleH4VhYxNpE2bDPePLk2zrOx0o/sendmessage?";
+telegramChatBilly = 945644448;
+
 function citas(){
 
   var hoy = new Date();
@@ -103,6 +106,7 @@ function guardarCita(){
   var usuario = $('#usuario').val();
   var descripcion = $('#descripcion').val();
   var fecha = new Date($('#datetimepicker1').data('DateTimePicker').date());//Obtener fecha seleccionada
+  fechaHora = fecha.getDate() + '-' + (fecha.getMonth()+1) + '-' + fecha.getFullYear() + ' a las ' + $('#horario option:selected').text();
   fecha = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-' +  fecha.getDate() + ' ' + $('#horario').val();
 
   var form = $("#formCita");
@@ -136,6 +140,8 @@ function guardarCita(){
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'Aceptar'
       });
+
+      notificacionTelegram(telegramChatBilly, fechaHora);
 
     });
   }  
@@ -220,5 +226,27 @@ function guardarAuto(){
 
     });
   }  
+
+}
+
+function notificacionTelegram(telegramChat, fechaHora){
+
+  var usuarioNombre = $('#usuarioNombre').text();
+  var telegramMensaje = "Billy, ha recibido una solicitud de cita para el día "+fechaHora+" departe de "+usuarioNombre+".";
+
+  $.ajax({
+    type: 'GET',
+    url: telegramBot+'chat_id='+telegramChat+'&text='+telegramMensaje,
+    success:function(resultado){
+      
+      console.log("Notificación enviada");
+
+    },
+    error:function(resultado){
+      
+      console.log("Hubo un problema al enviar la notificación");
+
+    }
+  });
 
 }
