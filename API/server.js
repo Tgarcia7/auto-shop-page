@@ -17,7 +17,7 @@ const mc = mysql.createConnection({
 
 mc.connect();
 
-app.use('/tallerBilly', express.static(path.join(__dirname,'../src')));
+app.use('/tallerBilly', express.static(path.join(__dirname,'./src')));
 
 app.listen(port);
 
