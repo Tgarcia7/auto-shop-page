@@ -46,7 +46,7 @@ function cargarAutos(usuario){
 
   $.ajax({
       type: 'GET',
-      url: "http://localhost:3000/auto/"+usuario,
+      url: "/auto/"+usuario,
       success:function(auto){
         
         var marca = "";
@@ -77,7 +77,7 @@ function cargarHorarios(){
 
   $.ajax({
       type: 'get',
-      url: 'http://localhost:3000/citas/'+fecha,
+      url: '/citas/'+fecha,
       success: function(horasDisponibles) {
 
         if ( horasDisponibles.length == 0 ){
@@ -116,7 +116,7 @@ function guardarCita(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3000/citas",
+      "url": "/citas",
       "method": "POST",
       "headers": {
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ function getUrlParameter(sParam) {
 function cargarNombre(usuarioId){
   $.ajax({
     type: 'GET',
-    url: "http://localhost:3000/usuario/"+usuarioId,
+    url: "/usuario/"+usuarioId,
     success:function(usuario){
       var nombre = usuario[0]["nombreCompleto"];
 
@@ -190,7 +190,7 @@ function guardarAuto(){
     var settings = {
       "async": true,
       "crossDomain": true,
-      "url": "http://localhost:3000/autos",
+      "url": "/autos",
       "method": "POST",
       "headers": {
         "Content-Type": "application/json",

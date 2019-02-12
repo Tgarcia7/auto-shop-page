@@ -49,7 +49,7 @@ function cargarHorarios(){
 
   $.ajax({
       type: 'GET',
-      url: "http://localhost:3000/horarioDisponible/"+fechaSeleccionada,
+      url: "/horarioDisponible/"+fechaSeleccionada,
       success:function(citas){
           
         var horario = "";
@@ -159,7 +159,7 @@ function aceptar(idCita, telegramChat, fechaHora){
     if ( result.value ){
       $.ajax({
         type: 'GET',
-        url: "http://localhost:3000/citasAceptar/"+idCita,
+        url: "/citasAceptar/"+idCita,
         success:function(resultado){
           
           cargarHorarios();
@@ -209,7 +209,7 @@ function rechazar(idCita, telegramChat, fechaHora){
     if ( result.value ){
       $.ajax({
         type: 'GET',
-        url: "http://localhost:3000/citasRechazar/"+idCita,
+        url: "/citasRechazar/"+idCita,
         success:function(resultado){
           
           cargarHorarios();
