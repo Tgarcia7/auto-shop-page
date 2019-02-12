@@ -16,7 +16,8 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "*",
-    "express": "*"
+    "express": "*",
+    "node-mysql": ">=2.5.0"
   },
   "keywords": [
     "heroku",
