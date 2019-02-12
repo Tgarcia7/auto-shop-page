@@ -2,7 +2,7 @@
   "name": "tallerMecanico",
   "version": "1.0.0",
   "engines": {
-    "node": "10.3.0"
+    "node": "10.15.1"
   },
   "description": "",
   "main": "server.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Tgarcia7/tallerBilly.git"
+    "url": "git+https://github.com/Tgarcia7/tallerMecanico.git"
   },
   "dependencies": {
     "express":"*",
@@ -25,7 +25,7 @@
   "author": "tey-garcia",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tgarcia7/tallerBilly/issues"
+    "url": "https://github.com/Tgarcia7/tallerMecanico/issues"
   },
-  "homepage": "https://github.com/Tgarcia7/tallerBilly#readme"
+  "homepage": "https://github.com/Tgarcia7/tallerMecanico#readme"
 }
