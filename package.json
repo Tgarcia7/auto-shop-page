@@ -10,6 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/Tgarcia7/tallerBilly.git"
   },
+  "dependencies": {
+    "express":"*",
+    "body-parser":"*",    
+    "bcrypt": "^0.8.5"
+  },
   "keywords": [
     "heroku",
     "examples"
