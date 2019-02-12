@@ -1,0 +1,23 @@
+{
+  "name": "tallerbilly",
+  "version": "1.0.0",
+  "description": "Taller mecánico",
+  "main": "src/citas/gestion.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tgarcia7/tallerBilly.git"
+  },
+  "keywords": [
+    "heroku",
+    "examples"
+  ],
+  "author": "tey-garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tgarcia7/tallerBilly/issues"
+  },
+  "homepage": "https://github.com/Tgarcia7/tallerBilly#readme"
+}

@@ -4,7 +4,7 @@ var mysql = require('mysql');
 
 //local mysql db connection
 var connection = mysql.createConnection({
-    host: 'wootit.cstmcmlaz2y7.us-east-1.rds.amazonaws.com',
+    host: 'ds2019.wootit.cr',
     user: 'tallerBilly',
     password: 'temp',
     database: 'dbo'
