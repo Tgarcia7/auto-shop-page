@@ -14,9 +14,9 @@
     "url": "git+https://github.com/Tgarcia7/tallerMecanico.git"
   },
   "dependencies": {
-    "express":"*",
-    "body-parser":"*",    
-    "bcrypt": "^0.8.5"
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "*",
+    "express": "*"
   },
   "keywords": [
     "heroku",
