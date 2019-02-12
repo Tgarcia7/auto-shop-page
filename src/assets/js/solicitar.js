@@ -1,3 +1,45 @@
+telegramBot = "https://api.telegram.org/bot687253249:AAH2AbmOPleH4VhYxNpE2bDPePLk2zrOx0o/sendmessage?";
+telegramChatBilly = 685590582;
+
+function citas(){
+
+  var hoy = new Date();
+  var dayMin = new Date();
+  var dayMax = new Date();
+
+  dayMin.setDate(hoy.getDate()+2);//Las citas se pueden reservar mínimo 48 horas después del día actual
+  dayMax.setDate(hoy.getDate()+15);//Días disponibles para citas a futuro
+  
+  //Inicialización de calendario
+  $('#datetimepicker1').datetimepicker({
+    locale: 'en',
+    inline: true,
+    daysOfWeekDisabled: [0, 6],
+    minDate: dayMin,
+    maxDate: dayMax,
+    format: 'L'
+  });
+
+  var usuario = getUrlParameter("uid");
+
+  if ( usuario !== undefined ){
+    $('#usuario').val(usuario);
+  }else{
+    $('#usuario').val(1);
+    usuario = 1;
+  }
+
+  cargarNombre(usuario);
+  cargarAutos(usuario);
+  cargarHorarios();
+
+  //On change de calendario
+  $('#datetimepicker1').on('dp.change', function(event) {
+    cargarHorarios();  
+  });
+
+}
+
 function cargarAutos(usuario){
 
   $('#carro').empty();
@@ -64,6 +106,7 @@ function guardarCita(){
   var usuario = $('#usuario').val();
   var descripcion = $('#descripcion').val();
   var fecha = new Date($('#datetimepicker1').data('DateTimePicker').date());//Obtener fecha seleccionada
+  fechaHora = fecha.getDate() + '-' + (fecha.getMonth()+1) + '-' + fecha.getFullYear() + ' a las ' + $('#horario option:selected').text();
   fecha = fecha.getFullYear() + '-' + (fecha.getMonth()+1) + '-' +  fecha.getDate() + ' ' + $('#horario').val();
 
   var form = $("#formCita");
@@ -98,36 +141,112 @@ function guardarCita(){
         confirmButtonText: 'Aceptar'
       });
 
+      notificacionTelegram(telegramChatBilly, fechaHora);
+
     });
   }  
 
 }
 
-function citas(){
+function getUrlParameter(sParam) {
+  var sPageURL = window.location.search.substring(1),
+      sURLVariables = sPageURL.split('&'),
+      sParameterName,
+      i;
 
-  var hoy = new Date();
-  var dayMin = new Date();
-  var dayMax = new Date();
+  for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
 
-  dayMin.setDate(hoy.getDate()+2);//Las citas se pueden reservar mínimo 48 horas después del día actual
-  dayMax.setDate(hoy.getDate()+15);//Días disponibles para citas a futuro
-  
-  //Inicialización de calendario
-  $('#datetimepicker1').datetimepicker({
-    locale: 'en',
-    inline: true,
-    daysOfWeekDisabled: [0, 6],
-    minDate: dayMin,
-    maxDate: dayMax,
-    format: 'L'
+      if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+  }
+}
+
+function cargarNombre(usuarioId){
+  $.ajax({
+    type: 'GET',
+    url: "http://localhost:3000/usuario/"+usuarioId,
+    success:function(usuario){
+      var nombre = usuario[0]["nombreCompleto"];
+
+      $('#usuarioNombre').text(nombre);
+          
+    } 
   });
+}
 
-  cargarAutos(1);
-  cargarHorarios();
+function guardarAuto(){
 
-  //On change de calendario
-  $('#datetimepicker1').on('dp.change', function(event) {
-    cargarHorarios();  
+  var placa = $('#placa').val();
+  var usuario = $('#usuario').val();
+  var marca = $('#marca').val();
+  var modelo = $('#modelo').val();
+
+  var form = $("#formAuto");
+  form.validate();
+    
+  if (form.valid()) {
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": "http://localhost:3000/autos",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "cache-control": "no-cache",
+        "Postman-Token": "de52df68-397b-417c-8d0f-c4abad952f3d"
+      },
+      "processData": false,
+      "data": '{"placa":'+placa+',"usuario":'+usuario+',"marca":"'+marca+'", "modelo":"'+modelo+'"}'
+    }
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      
+      cargarAutos(usuario);
+
+      $('#modalAgregarAuto').modal('hide');
+
+      const toast = swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+      });
+      
+      toast({
+        type: 'success',
+        title: 'El auto ha sido agregado con éxito'
+      })
+
+      $('#placa').val("");
+      $('#marca').val("");
+      $('#modelo').val("");
+
+    });
+  }  
+
+}
+
+function notificacionTelegram(telegramChat, fechaHora){
+
+  var usuarioNombre = $('#usuarioNombre').text();
+  var telegramMensaje = "Billy, ha recibido una solicitud de cita para el día "+fechaHora+" departe de "+usuarioNombre+".";
+
+  $.ajax({
+    type: 'GET',
+    url: telegramBot+'chat_id='+telegramChat+'&text='+telegramMensaje,
+    success:function(resultado){
+      
+      console.log("Notificación enviada");
+
+    },
+    error:function(resultado){
+      
+      console.log("Hubo un problema al enviar la notificación");
+
+    }
   });
 
 }
