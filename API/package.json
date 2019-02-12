@@ -1,17 +1,23 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "mysql": "^2.16.0"
-  },
-  "devDependencies": {},
+  "description": "",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tgarcia7/tallerBilly.git"
+  },
+  "keywords": [
+    "heroku",
+    "examples"
+  ],
+  "author": "tey-garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tgarcia7/tallerBilly/issues"
+  },
+  "homepage": "https://github.com/Tgarcia7/tallerBilly#readme"
 }
