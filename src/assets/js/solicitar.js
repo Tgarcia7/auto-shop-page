@@ -46,6 +46,7 @@ function cargarAutos(usuario){
 
   $.ajax({
       type: 'GET',
+      dataType: 'json',
       url: "http://localhost:3000/auto/"+usuario,
       success:function(auto){
         
