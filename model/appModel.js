@@ -146,4 +146,23 @@ Automovil.agregarCita = function (req, callback){
 
 }
 
+//Método para agregar autos
+Automovil.agregarAuto = function (req, callback){   
+
+    let stmt = `INSERT INTO auto (auto_placa, auto_usuario, auto_marca, auto_modelo)
+                VALUES(?,?,?,?)`;
+    let values = [req.body.placa, req.body.usuario, req.body.marca, req.body.modelo];
+    
+    // execute the insert statment
+    sql.query(stmt, values, (err, results, fields) => {
+      if (err) {
+        console.error(err.message);
+        callback(err, null);
+      }else{
+        callback(null, results);
+      }
+    });
+
+}
+
 module.exports = Automovil;
