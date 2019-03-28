@@ -15,22 +15,7 @@ module.exports = function(app) {
   .get(autoRouts.citas);
 
   app.route('/citas')
-  .post(function(req, res){
-
-    let stmt = `INSERT INTO citas (cita_usuario, cita_placa, cita_descripcion, cita_fecha)
-                VALUES(?,?,?,?)`;
-    let values = [req.body.usuario, req.body.carro, req.body.descripcion, req.body.fecha];
-    
-    // execute the insert statment
-    sql.query(stmt, values, (err, results, fields) => {
-      if (err) {
-        return console.error(err.message);
-      }
-    });
-
-      res.json(req.body);
-      return console.error("agregado");;
-  });
+  .post(autoRouts.agregarCita);
 
   app.route('/horarioDisponible/:fecha')
   .get(autoRouts.HorarioDisponible_Ocupado);

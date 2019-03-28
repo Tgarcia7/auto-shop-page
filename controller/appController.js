@@ -68,10 +68,10 @@ exports.nombreUsuario = function(req, res){
   });
 };
 
-/*exports.agregarCita = function(req, res) {
+exports.agregarCita = function(req, res) {
   Automovil.agregarCita(req, function(err, cita) {
-    if (err)
-      res.send(err);
+    if (err) {res.send(err)}
+    
     res.json(req.body);
   });
-} */
+}

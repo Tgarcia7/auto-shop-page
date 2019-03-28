@@ -126,4 +126,24 @@ Automovil.nombreUsuario = function (idUsuario, callback){
     });
 }
 
+//Método para agregar citas
+Automovil.agregarCita = function (req, callback){   
+    
+    let stmt = `INSERT INTO citas (cita_usuario, cita_placa, cita_descripcion, cita_fecha)
+                VALUES(?,?,?,?)`;
+    let values = [req.body.usuario, req.body.carro, req.body.descripcion, req.body.fecha];
+    
+    // execute the insert statment
+    sql.query(stmt, values, (err, results, fields) => {
+      if (err) {
+        console.error(err.message);
+        callback(err, null);
+        }
+        else{
+            callback(null, results);
+        }
+    });
+
+}
+
 module.exports = Automovil;
