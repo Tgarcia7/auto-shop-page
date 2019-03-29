@@ -1,39 +1,37 @@
-'use strict';
-var autoRouts = require('../controller/appController.js');
+'use strict'
+var appController = require('../controller/appController.js')
 
-var sql = require('../model/db');//temporal para pruebas
-
-module.exports = function(app) {  
+module.exports = (app) => {  
   
   app.route('/auto')
-    .get(autoRouts.listarTodos);
+    .get(appController.listarTodos)
    
   app.route('/auto/:usuario')
-    .get(autoRouts.listarPorUsuario);
+    .get(appController.listarPorUsuario)
 
   app.route('/citas/:fecha')
-  .get(autoRouts.citas);
+    .get(appController.citas)
 
   app.route('/citas')
-  .post(autoRouts.agregarCita);
+    .post(appController.agregarCita)
 
   app.route('/horarioDisponible/:fecha')
-  .get(autoRouts.HorarioDisponible_Ocupado);
+    .get(appController.HorarioDisponible_Ocupado)
   
-  //Método aceptar
   app.route('/citasAceptar/:idCita')
-  .get(autoRouts.AceptarCitas);
+    .get(appController.AceptarCitas)
 
-  //Método de rechazar
   app.route('/citasRechazar/:idCita')
-  .get(autoRouts.RechazarCitas);
+    .get(appController.RechazarCitas)
 
-  //Método para mostrar el nombre del usuario
   app.route('/usuario/:idUsuario')
-  .get(autoRouts.nombreUsuario);
+    .get(appController.nombreUsuario)
 
-  //Método para agregar autos
   app.route('/autos')
-  .post(autoRouts.agregarAuto);
+    .post(appController.agregarAuto)
 
-};
+  app.get('*', (request, response) => {
+    response.send('Ruta indefinida')
+  })
+
+}
