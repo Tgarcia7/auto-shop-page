@@ -1,17 +1,12 @@
-'use strict';
+'use strict'
+var sql = require('./db')
+var modelCitas = function(){}
 
-var sql = require('./db');
+modelCitas.listarTodos = function (callback){
+    let queryStr = `SELECT * 
+                    FROM auto`
 
-var Automovil = function(){
-    // this.auto_placa = automovil.auto_placa,
-    // this.auto_marca = automovil.auto_marca
-}
-var citas = function(){
-    // this.cita_fecha = citas.cita_fecha
-}
-
-Automovil.listarTodos = function (callback){
-    sql.query("Select * from auto", function (err, res) {
+    sql.query(queryStr, (err, res) => {
 
         if(err) {
             console.log("error: ", err);
@@ -19,13 +14,12 @@ Automovil.listarTodos = function (callback){
         }
         else{
           console.log('auto : ', res);  
-
-         callback(null, res);
+          callback(null, res);
         }
-    });  
-};
+    })
+}
 
-Automovil.listarPorUsuario = function (usuario, callback){
+modelCitas.listarPorUsuario = function (usuario, callback){
     sql.query("SELECT *\
                 FROM auto\
                 WHERE auto_usuario = ?\
@@ -40,7 +34,7 @@ Automovil.listarPorUsuario = function (usuario, callback){
     });
 };
 
-Automovil.listarPorFecha = function (fecha, callback){
+modelCitas.listarPorFecha = function (fecha, callback){
     sql.query("SELECT hd.*\
                 FROM citas c\
                 RIGHT JOIN horario_disponible hd\
@@ -59,7 +53,7 @@ Automovil.listarPorFecha = function (fecha, callback){
     });
 };
 
-Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, callback){
+modelCitas.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, callback){
     sql.query("SELECT c.cita_id, c.cita_usuario, c.cita_descripcion, DATE_FORMAT(c.cita_fecha, '%e-%m-%Y, %h:%i %p') AS cita_fecha , hd.id AS horario_id, c.estado,\
     hd.horario, CONCAT(a.auto_marca, ' ', a.auto_modelo) AS automovil, CONCAT(u.nombre, ' ', u.apellidos) AS nombreCompleto, u.telegram_chat_id,\
     DATE_FORMAT(c.cita_fecha, '%d-%m-%Y a las %h:%i %p') AS cita_fechaHora\
@@ -83,8 +77,7 @@ Automovil.HorarioDisponible_Ocupado = function (horario_disponible_Ocupado, call
     });
 };
 
-//Método aceptar
-Automovil.AceptarCitas = function (idCita, callback){
+modelCitas.AceptarCitas = function (idCita, callback){
     sql.query("UPDATE dbo.citas\
     SET estado = '1' WHERE cita_id = ?;", idCita, function (err, res) {             
         if(err) {
@@ -97,8 +90,7 @@ Automovil.AceptarCitas = function (idCita, callback){
     });
 }
    
-//Método rechazar
-Automovil.RechazarCitas = function (idCita, callback){
+modelCitas.RechazarCitas = function (idCita, callback){
     sql.query("UPDATE dbo.citas\
     SET estado = '0' WHERE cita_id = ?;", idCita, function (err, res) {             
         if(err) {
@@ -111,8 +103,7 @@ Automovil.RechazarCitas = function (idCita, callback){
     });
 }
 
-//Método para mostrar el nombre del usuario
-Automovil.nombreUsuario = function (idUsuario, callback){   
+modelCitas.nombreUsuario = function (idUsuario, callback){   
     sql.query("SELECT CONCAT(nombre, ' ', apellidos) AS nombreCompleto\
     FROM usuario\
     WHERE id = ?;", idUsuario, function (err, res) {      
@@ -126,8 +117,7 @@ Automovil.nombreUsuario = function (idUsuario, callback){
     });
 }
 
-//Método para agregar citas
-Automovil.agregarCita = function (req, callback){   
+modelCitas.agregarCita = function (req, callback){   
     
     let stmt = `INSERT INTO citas (cita_usuario, cita_placa, cita_descripcion, cita_fecha)
                 VALUES(?,?,?,?)`;
@@ -146,8 +136,7 @@ Automovil.agregarCita = function (req, callback){
 
 }
 
-//Método para agregar autos
-Automovil.agregarAuto = function (req, callback){   
+modelCitas.agregarAuto = function (req, callback){   
 
     let stmt = `INSERT INTO auto (auto_placa, auto_usuario, auto_marca, auto_modelo)
                 VALUES(?,?,?,?)`;
@@ -165,4 +154,4 @@ Automovil.agregarAuto = function (req, callback){
 
 }
 
-module.exports = Automovil;
+module.exports = modelCitas;

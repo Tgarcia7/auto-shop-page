@@ -13,11 +13,10 @@ console.log('Citas RESTful API server started on: ' + port);
 
 // Headers for Ajax
 app.use( (req, res, next) => {
-    
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    // Pass to next layer of middleware
-    next();
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // Pass to next layer of middleware
+  next();
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
