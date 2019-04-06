@@ -20,11 +20,6 @@ exports.listarPorUsuario = function(req, res) {
   });
 };
 
-exports.agregarAuto = function(req, res) {
-    
-  res.json(req.body);
-};
-
 exports.citas = function(req, res){
   Automovil.listarPorFecha(req.params.fecha, function(err, auto) {
     if (err)
@@ -68,10 +63,18 @@ exports.nombreUsuario = function(req, res){
   });
 };
 
-/*exports.agregarCita = function(req, res) {
+exports.agregarCita = function(req, res) {
   Automovil.agregarCita(req, function(err, cita) {
-    if (err)
-      res.send(err);
+    if (err) {res.send(err)}
+    
     res.json(req.body);
   });
-} */
+}
+
+exports.agregarAuto = function(req, res) {
+  Automovil.agregarAuto(req, function(err, cita) {
+    if (err) {res.send(err)}
+    
+    res.json(req.body);
+  });
+}
