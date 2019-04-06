@@ -1,4 +1,5 @@
 require('./model/db')//Init conection to db
+var conf = require('./conf')
 var express = require('express')
 var bodyParser = require('body-parser')
 var path = require('path')  
@@ -11,7 +12,7 @@ app.use('/', express.static(path.join(__dirname,'./views')))//Views direct acces
 app.listen(port)
 console.log('Citas RESTful API server started on: ' + port)
 
-// Headers for Ajax
+//Headers for Ajax
 app.use( (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")

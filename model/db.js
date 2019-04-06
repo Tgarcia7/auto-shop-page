@@ -1,13 +1,19 @@
 'use strict'
 
 var mysql = require('mysql')
+var conf = require('../conf')
+
+let host = process.env.HOST || 'ds2019.wootit.cr'
+let user = process.env.USERDB || 'tallerBilly'
+let pass = process.env.PASSDB || 'temp'
+let db = process.env.DB || 'dbo'
 
 //local mysql db connection
 var connection = mysql.createConnection({
-    host: 'ds2019.wootit.cr',
-    user: 'tallerBilly',
-    password: 'temp',
-    database: 'dbo'
+    host: host,
+    user: user,
+    password: pass,
+    database: db
 })
 
 connection.connect((err) => {
