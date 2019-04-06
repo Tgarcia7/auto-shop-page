@@ -1,80 +1,65 @@
 'use strict'
-var Automovil = new require("../model/appModel");
+var Automovil = new require("../model/appModel")
 
-exports.listarTodos = function(req, res){
-    console.log("DEBU:", Automovil)
-    Automovil.listarTodos(function(err, auto){
-        console.log('controller');
-        if(err)
-            res.send(err);
-            console.log('res', auto);
-        res.json(auto);
-    });
-};
-
-exports.listarPorUsuario = function(req, res) {
-  Automovil.listarPorUsuario(req.params.usuario, function(err, auto) {
-    if (err)
-      res.send(err);
-    res.json(auto);
-  });
-};
-
-exports.citas = function(req, res){
-  Automovil.listarPorFecha(req.params.fecha, function(err, auto) {
-    if (err)
-      res.send(err);
-    res.json(auto);
-  });
-};
-
-exports.HorarioDisponible_Ocupado = function(req, res){
-  Automovil.HorarioDisponible_Ocupado(req.params.fecha, function(err, hor_disp) {
-    if (err)
-      res.send(err);
-    res.json(hor_disp);
-  });
-};
-
-//Método aceptar
-exports.AceptarCitas = function(req, res){
-  Automovil.AceptarCitas(req.params.idCita, function(err, aceptar){
-    if(err)
-    res.send(err);
-    res.json(aceptar)
-  });
-};
-
-//Método de rechazar
-exports.RechazarCitas = function(req, res){
-  Automovil.RechazarCitas(req.params.idCita, function(err, rechazar){
-  if(err)
-  res.send(err);
-  res.json(rechazar)
-  });
-};
-
-//Método para mostrar le nombre del usuario
-exports.nombreUsuario = function(req, res){
-  Automovil.nombreUsuario(req.params.idUsuario, function(err, user){
-  if(err)
-    res.send(err);
-  res.json(user)
-  });
-};
-
-exports.agregarCita = function(req, res) {
-  Automovil.agregarCita(req, function(err, cita) {
-    if (err) {res.send(err)}
-    
-    res.json(req.body);
-  });
+exports.listarTodos = (req, res) => {
+  Automovil.listarTodos((err, auto) => {
+    if (err) { res.send(err) }
+    res.json(auto)
+  })
 }
 
-exports.agregarAuto = function(req, res) {
-  Automovil.agregarAuto(req, function(err, cita) {
+exports.listarPorUsuario = (req, res) => {
+  Automovil.listarPorUsuario(req.params.usuario, (err, auto) => {
     if (err) {res.send(err)}
-    
-    res.json(req.body);
-  });
+    res.json(auto)
+  })
+}
+
+exports.listarPorFecha = (req, res) => {
+  Automovil.listarPorFecha(req.params.fecha, (err, auto) => {
+    if (err){ res.send(err) }
+    res.json(auto)
+  })
+}
+
+exports.horarioDisponible = (req, res) => {
+  Automovil.horarioDisponible(req.params.fecha, (err, horDisp) => {
+    if (err){res.send(err)}
+    res.json(horDisp)
+  })
+}
+
+exports.aceptarCitas = (req, res) => {
+  Automovil.aceptarCitas(req.params.idCita, (err, aceptar) => {
+    if (err){ res.send(err) }
+    res.json(aceptar)
+  })
+}
+
+exports.rechazarCitas = (req, res) => {
+  Automovil.rechazarCitas(req.params.idCita, (err, rechazar) => {
+    if (err){ res.send(err) }
+    res.json(rechazar)
+  })
+}
+
+exports.nombreUsuario = (req, res) => {
+  Automovil.nombreUsuario(req.params.idUsuario, (err, user) => {
+    if (err){ res.send(err) }
+    res.json(user)
+  })
+}
+
+exports.agregarCita = (req, res) => {
+  Automovil.agregarCita(req, (err, cita) => {
+    if (err) { res.send(err) }
+    res.json(req.body)
+  })
+}
+
+exports.agregarAuto = (req, res) => {
+  Automovil.agregarAuto(req, (err, cita) => {
+    if (err) { res.send(err) }
+    res.json(req.body)
+  })
 }
