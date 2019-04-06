@@ -1,11 +1,11 @@
 'use strict'
-var appController = require('../controller/appController.js')
+var appController = require('../controller/appController')
 
-module.exports = (app) => {  
-  
+module.exports = (app) => {
+
   app.route('/auto')
     .get(appController.listarTodos)
-   
+
   app.route('/auto/:usuario')
     .get(appController.listarPorUsuario)
 
@@ -17,7 +17,7 @@ module.exports = (app) => {
 
   app.route('/horarioDisponible/:fecha')
     .get(appController.horarioDisponible)
-  
+
   app.route('/citasAceptar/:idCita')
     .get(appController.aceptarCitas)
 
