@@ -10,19 +10,19 @@ module.exports = (app) => {
     .get(appController.listarPorUsuario)
 
   app.route('/citas/:fecha')
-    .get(appController.citas)
+    .get(appController.listarPorFecha)
 
   app.route('/citas')
     .post(appController.agregarCita)
 
   app.route('/horarioDisponible/:fecha')
-    .get(appController.HorarioDisponible_Ocupado)
+    .get(appController.horarioDisponible)
   
   app.route('/citasAceptar/:idCita')
-    .get(appController.AceptarCitas)
+    .get(appController.aceptarCitas)
 
   app.route('/citasRechazar/:idCita')
-    .get(appController.RechazarCitas)
+    .get(appController.rechazarCitas)
 
   app.route('/usuario/:idUsuario')
     .get(appController.nombreUsuario)

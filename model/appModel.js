@@ -1,61 +1,61 @@
-"use strict";
-var sql = require("./db");
+"use strict"
+var sql = require("./db")
 
-var modelTaller = () => {};
+var modelTaller = () => {}
 
 modelTaller.listarTodos = callback => {
   let queryString = `SELECT * 
-      FROM auto;`;
+                    FROM auto;`
 
   sql.query(queryString, (err, res) => {
     if (err) {
-      console.log("error: ", err);
-      callback(err);
+      console.log("error: ", err.message)
+      callback(err)
     } else {
-      callback(null, res);
+      callback(null, res)
     }
-  });
-};
+  })
+}
 
 modelTaller.listarPorUsuario = (usuario, callback) => {
   let queryString = `SELECT *
-      FROM auto
-      WHERE auto_usuario = ?
-      ORDER BY auto_marca, auto_modelo`;
+                    FROM auto
+                    WHERE auto_usuario = ?
+                    ORDER BY auto_marca, auto_modelo`
 
-  sql.query(queryString, usuario, function(err, res) {
+  sql.query(queryString, usuario, (err, res) => {
     if (err) {
-      console.log("error: ", err);
-      callback(err, null);
+      console.log("error: ", err.message)
+      callback(err, null)
     } else {
-      callback(null, res);
+      callback(null, res)
     }
   })
 }
 
 modelTaller.listarPorFecha = (fecha, callback) => {
   let queryString = 
-      `SELECT hd.*
-      FROM citas c
-      RIGHT JOIN horario_disponible hd
-          ON TIME(cita_fecha) = hd.horario
-          AND DATE(cita_fecha) = ?
-      WHERE c.cita_id IS NULL
-      AND hd.estado = '1'
-      ORDER BY horario;`
+        `SELECT hd.*
+        FROM citas c
+        RIGHT JOIN horario_disponible hd
+            ON TIME(cita_fecha) = hd.horario
+            AND DATE(cita_fecha) = ?
+        WHERE c.cita_id IS NULL
+        AND hd.estado = '1'
+        ORDER BY horario;`
   
-  sql.query(queryString, fecha, function(err, res) {
+  sql.query(queryString, fecha, (err, res) => {
       if (err) {
-        console.log("error: ", err);
-        callback(err, null);
+        console.log("error: ", err.message)
+        callback(err, null)
       } else {
-        callback(null, res);
+        callback(null, res)
       }
     }
   )
 }
 
-modelTaller.HorarioDisponible_Ocupado = (horario_disponible_Ocupado, callback) => {
+modelTaller.horarioDisponible = (fecha, callback) => {
   let queryString = 
       `SELECT c.cita_id, c.cita_usuario, c.cita_descripcion, DATE_FORMAT(c.cita_fecha, '%e-%m-%Y, %h:%i %p') AS cita_fecha , hd.id AS horario_id, c.estado,
       hd.horario, CONCAT(a.auto_marca, ' ', a.auto_modelo) AS automovil, CONCAT(u.nombre, ' ', u.apellidos) AS nombreCompleto, u.telegram_chat_id,
@@ -71,57 +71,7 @@ modelTaller.HorarioDisponible_Ocupado = (horario_disponible_Ocupado, callback) =
       WHERE hd.estado = '1'
       ORDER BY horario;`
 
-  sql.query(queryString, horario_disponible_Ocupado, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        callback(err, null);
-      } else {
-        callback(null, res);
-      }
-    }
-  )
-}
-
-modelTaller.AceptarCitas = (idCita, callback) => {
-  let queryString = 
-      `UPDATE dbo.citas
-      SET estado = '1' WHERE cita_id = ?;`
-  
-  sql.query(queryString, idCita, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        callback(err, null);
-      } else {
-        callback(null, res);
-      }
-    }
-  )
-}
-
-modelTaller.RechazarCitas = (idCita, callback) => {
-  let queryString = 
-      `UPDATE dbo.citas
-      SET estado = '0' 
-      WHERE cita_id = ?;`
-  
-  sql.query(queryString, idCita, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        callback(err, null);
-      } else {
-        callback(null, res);
-      }
-    }
-  )
-}
-
-modelTaller.nombreUsuario = (idUsuario, callback) => {
-  let queryString = 
-      `SELECT CONCAT(nombre, ' ', apellidos) AS nombreCompleto
-      FROM usuario
-      WHERE id = ?;`
-
-  sql.query(queryString, idUsuario, (err, res) => {
+  sql.query(queryString, fecha, (err, res) => {
       if (err) {
         console.log("error: ", err)
         callback(err, null)
@@ -132,9 +82,56 @@ modelTaller.nombreUsuario = (idUsuario, callback) => {
   )
 }
 
+modelTaller.aceptarCitas = (idCita, callback) => {
+  let queryString = `UPDATE dbo.citas
+                    SET estado = '1' WHERE cita_id = ?;`
+  
+  sql.query(queryString, idCita, (err, res) => {
+      if (err) {
+        console.log("error: ", err.message)
+        callback(err, null)
+      } else {
+        callback(null, res)
+      }
+    }
+  )
+}
+
+modelTaller.rechazarCitas = (idCita, callback) => {
+  let queryString = `UPDATE dbo.citas
+                    SET estado = '0' 
+                    WHERE cita_id = ?;`
+  
+  sql.query(queryString, idCita, (err, res) => {
+      if (err) {
+        console.log("error: ", err.message);
+        callback(err, null)
+      } else {
+        callback(null, res)
+      }
+    }
+  )
+}
+
+modelTaller.nombreUsuario = (idUsuario, callback) => {
+  let queryString = `SELECT CONCAT(nombre, ' ', apellidos) AS nombreCompleto
+                    FROM usuario
+                    WHERE id = ?;`
+
+  sql.query(queryString, idUsuario, (err, res) => {
+      if (err) {
+        console.log("error: ", err.message)
+        callback(err, null)
+      } else {
+        callback(null, res)
+      }
+    }
+  )
+}
+
 modelTaller.agregarCita = (req, callback) => {
   let queryString = `INSERT INTO citas (cita_usuario, cita_placa, cita_descripcion, cita_fecha)
-              VALUES(?,?,?,?)`;
+              VALUES(?,?,?,?)`
   let values = [
     req.body.usuario,
     req.body.carro,
