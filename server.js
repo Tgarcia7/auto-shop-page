@@ -1,24 +1,24 @@
-require('./model/db')//Init conection to db
-var conf = require('./conf')
+require('./model/')//Confirms db is alive
+require('./conf')
 var express = require('express')
 var bodyParser = require('body-parser')
-var path = require('path')  
+var path = require('path')
 var app = express()
 
-port = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 
-app.use('/', express.static(path.join(__dirname,'./views')))//Views direct access
+app.use('/', express.static(path.join(__dirname, './views')))//Views direct access
 
-app.listen(port)
-console.log('Citas RESTful API server started on: ' + port)
+app.listen(PORT)
+console.log('Citas RESTful API server started on: ' + PORT)
 
 //Headers for Ajax
-app.use( (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    // Pass to next layer of middleware
-    next()
-});
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  // Pass to next layer of middleware
+  next()
+})
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
