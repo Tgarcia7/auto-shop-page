@@ -1,9 +1,13 @@
 require('./model/')//Confirms db is alive
-require('./conf')
 var express = require('express')
 var bodyParser = require('body-parser')
 var path = require('path')
 var app = express()
+
+const fs = require('fs')
+if (fs.existsSync('../conf.js')) {
+  require('../conf')
+}
 
 const PORT = process.env.PORT || 3000
 

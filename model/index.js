@@ -1,7 +1,9 @@
 'use strict'
-
 var mysql = require('mysql')
-require('../conf')
+const fs = require('fs')
+if (fs.existsSync('../conf.js')) {
+  require('../conf')
+}
 
 let host = process.env.HOST || 'ds2019.wootit.cr'
 let user = process.env.USERDB || 'tallerBilly'
