@@ -1,5 +1,5 @@
 "use strict"
-var sql = require("./")
+var sql = require(".")
 
 var modelTaller = () => { }
 

@@ -1,5 +1,5 @@
 'use strict'
-var appController = require('../controller/appController')
+var appController = require('../controllers/appController')
 
 module.exports = (app) => {
 
