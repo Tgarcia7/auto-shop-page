@@ -1,16 +1,15 @@
-require('./model/')//Confirms db is alive
-require('./conf')
+require('./models')//Confirms db is alive
+require('dotenv').config()
+
 var express = require('express')
 var bodyParser = require('body-parser')
 var path = require('path')
 var app = express()
 
-const PORT = process.env.PORT || 3000
-
 app.use('/', express.static(path.join(__dirname, './views')))//Views direct access
 
-app.listen(PORT)
-console.log('Citas RESTful API server started on: ' + PORT)
+app.listen(process.env.PORT)
+console.log('Citas RESTful API server started on: ' + process.env.PORT)
 
 //Headers for Ajax
 app.use((req, res, next) => {
@@ -20,6 +19,7 @@ app.use((req, res, next) => {
   next()
 })
 
+//Convierte el body de las peticiones a JSON
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 

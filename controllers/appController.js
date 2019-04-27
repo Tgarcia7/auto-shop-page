@@ -1,5 +1,5 @@
 'use strict'
-var ModelTaller = new require("../model/appModel")
+var ModelTaller = new require("../models/appModel")
 
 exports.listarTodos = (req, res) => {
   ModelTaller.listarTodos((err, auto) => {
