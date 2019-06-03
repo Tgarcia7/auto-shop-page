@@ -17,9 +17,9 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "*",
+    "dotenv": "^7.0.0",
     "express": "*",
-    "mysql": ">=2.5.0",
-    "dotenv": "^7.0.0"
+    "mysql": ">=2.5.0"
   },
   "keywords": [
     "heroku",
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/Tgarcia7/tallerMecanico#readme",
   "devDependencies": {
+    "jsdoc": "^3.5.5",
     "nodemon": "^1.18.11"
   }
 }

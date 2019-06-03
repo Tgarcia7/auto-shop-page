@@ -82,6 +82,11 @@ modelTaller.horarioDisponible = (fecha, callback) => {
   )
 }
 
+/**
+ * Proceso para dar por aceptada una cita
+ * @param {numeric} idCita Id - de la cita que será aceptada
+ * @param {requestCallback} callback - Función callback que maneja la respuesta
+ */
 modelTaller.aceptarCitas = (idCita, callback) => {
   let queryString = `UPDATE dbo.citas
                     SET estado = '1' WHERE cita_id = ?;`
