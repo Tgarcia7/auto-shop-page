@@ -32,6 +32,6 @@
   },
   "homepage": "https://github.com/Tgarcia7/tallerMecanico#readme",
   "devDependencies": {
-    "nodemon": "^1.18.11"
+    "nodemon": "^1.19.4"
   }
 }
